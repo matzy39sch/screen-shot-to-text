@@ -26,6 +26,13 @@ This will create an exe file on windows so you can run our script from your desk
 If you are not familiar with pyinstaller, please check the official documentation. https://www.pyinstaller.org/
 
 
+###### To use google sheet, you'll have to get Google Drive API, credentials and a JSON file which you have to load later
+###### I followed the first steps of the following post https://erikrood.com/Posts/py_gsheets.html
+
+
 ## Todo:
-- [ ] get the google sheets URL from an entry and print the text there, lines new rows
+- [ ] create dependency list and installation guide
+- [X] get the google sheets name and the sevice account JSON file from an entry and print the text there, new lines to new rows
 - [ ] coordinate input limits to screen size
+- [ ] load image instead of the screenshot
+- [ ] make the secetion with a mouse instead of the boring coordinates

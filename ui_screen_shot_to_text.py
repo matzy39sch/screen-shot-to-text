@@ -3,6 +3,10 @@ from typing import Sized
 from tkinter import *
 from PIL import Image, ImageTk
 import screenshot_to_text
+from tkinter.filedialog import askopenfilename
+import google_sheet
+
+filename = ""
 
 def update_image():
     img = Image.open(r"Capture.png")
@@ -18,8 +22,17 @@ def image_to_text():
     end_y_value = int(my_text_box_end_y.get())
     text = screenshot_to_text.image_to_text(start_x_value, start_y_value, end_x_value, end_y_value)
     log.insert(1.0, text)
+    sheet_name = url.get()
+    if filename == '' and sheet_name != '':
+        open_file()
+    elif sheet_name != '':
+        google_sheet.write_to_sheet(filename, text, sheet_name, 0, (2, 2))
     update_image()
     return text
+
+def open_file():
+    global filename
+    filename = askopenfilename() 
 
 my_root_window = tkinter.Tk()
 
@@ -47,12 +60,20 @@ my_text_box_end_x = Entry(frame_end_x, textvariable= end_x,width=5)
 my_text_box_end_x.grid(row=2, column=1)
 frame_end_x.grid(row=2, column=0, sticky=W)
 
-
 frame_end_y = tkinter.Frame(my_root_window)
 Label(frame_end_y, text="END Y", height=4).grid(row=3, column=0)
 my_text_box_end_y=Entry(frame_end_y, textvariable= end_y,width=5)
 my_text_box_end_y.grid(row=3, column=1)
 frame_end_y.grid(row=3, column=0, sticky=W)
+
+url = tkinter.StringVar(value="")
+frame_sheets = tkinter.Frame(my_root_window)
+Label(frame_sheets, text="Google sheet name: ", height=4).grid(row=4, column=0)
+url=Entry(frame_sheets, textvariable= url,width=50)
+url.grid(row=4, column=1)
+button = tkinter.Button( my_root_window, text='Browse', command=open_file )
+button.grid(row=4, column=2)
+frame_sheets.grid(row=4, column=0, sticky=W)
 
 # create textarea
 frame = tkinter.Frame(my_root_window)
@@ -61,7 +82,7 @@ scrollbar.pack(side=tkinter.RIGHT, fill=tkinter.Y)
 log = tkinter.Text(frame, width=40)
 log.pack(expand=1)
 scrollbar.config(command=log.yview)
-frame.grid(row=4, column=0)
+frame.grid(row=5, column=0)
 
 # create canvas
 canvas = tkinter.Canvas(my_root_window, height = 200, width=200)
