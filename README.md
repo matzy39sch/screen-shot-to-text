@@ -1,4 +1,5 @@
 # screen-shot-to-text
+![alt text](https://github.com/matzy39sch/screen-shot-to-text/blob/master/screenshots/working.gif?raw=true)
 
 start with the following command:
 
