@@ -10,7 +10,7 @@ filename = ""
 
 def update_image():
     img = Image.open(r"Capture.png")
-    img = img.resize((200,200), Image.ANTIALIAS)
+    img = img.resize((200,200), Image.Resampling.LANCZOS)
     photoImg =  ImageTk.PhotoImage(img)
     canvas.create_image((0, 0), anchor=NW ,image=photoImg, state="normal")
     canvas.theimage = photoImg
